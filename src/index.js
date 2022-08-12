@@ -1,4 +1,5 @@
 const Ajv = require("ajv");
+const AjvCore = require("ajv/dist/core").default;
 
 /**
  * Express middleware for validating requests
@@ -7,7 +8,12 @@ const Ajv = require("ajv");
  */
 class Validator {
 	constructor(ajvOptions) {
-		this.ajv = new Ajv(ajvOptions);
+		if (ajvOptions instanceof AjvCore) {
+			this.ajv = ajvOptions;
+		} else {
+			this.ajv = new Ajv(ajvOptions);
+		}
+
 		this.validate = this.validate.bind(this);
 	}
 
