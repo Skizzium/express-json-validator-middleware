@@ -51,9 +51,16 @@ class Validator {
 				}
 
 				// Test if property is valid
-				const valid = await validateFunction(req[requestProperty]);
-				if (!valid) {
-					validationErrors[requestProperty] = validateFunction.errors;
+				try {
+					const valid = await validateFunction(req[requestProperty]);
+					if (!valid) {
+						validationErrors[requestProperty] = validateFunction.errors;
+					}
+				}
+				catch (err) {
+					if (e instanceof Ajv.ValidationError) {
+						validationErrors[requestProperty] = err.errors
+					}
 				}
 			}
 
