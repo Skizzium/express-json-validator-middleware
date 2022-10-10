@@ -36,7 +36,7 @@ class Validator {
 				self);
 
 		// The actual middleware function
-		return (req, res, next) => {
+		return async (req, res, next) => {
 			let validationErrors = {};
 
 			for (let {
@@ -51,7 +51,7 @@ class Validator {
 				}
 
 				// Test if property is valid
-				const valid = validateFunction(req[requestProperty]);
+				const valid = await validateFunction(req[requestProperty]);
 				if (!valid) {
 					validationErrors[requestProperty] = validateFunction.errors;
 				}
