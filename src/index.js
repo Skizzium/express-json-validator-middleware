@@ -58,7 +58,7 @@ class Validator {
 					}
 				}
 				catch (err) {
-					if (e instanceof Ajv.ValidationError) {
+					if (err instanceof Ajv.ValidationError) {
 						validationErrors[requestProperty] = err.errors
 					}
 				}
